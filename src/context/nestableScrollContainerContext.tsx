@@ -11,8 +11,10 @@ const NestableScrollContainerContext = React.createContext<
 
 function useSetupNestableScrollContextValue({
   forwardedRef,
+  scrollEnabled
 }: {
   forwardedRef?: React.MutableRefObject<ScrollView>;
+  scrollEnabled: boolean
 }) {
   const [outerScrollEnabled, setOuterScrollEnabled] = useState(true);
   const scrollViewSize = useSharedValue(0);
@@ -39,11 +41,13 @@ function useSetupNestableScrollContextValue({
 export function NestableScrollContainerProvider({
   children,
   forwardedRef,
+  scrollEnabled
 }: {
   children: React.ReactNode;
   forwardedRef?: React.MutableRefObject<ScrollView>;
+  scrollEnabled: boolean
 }) {
-  const contextVal = useSetupNestableScrollContextValue({ forwardedRef });
+  const contextVal = useSetupNestableScrollContextValue({ forwardedRef, scrollEnabled });
   return (
     <NestableScrollContainerContext.Provider value={contextVal}>
       {children}

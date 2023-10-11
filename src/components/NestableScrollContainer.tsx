@@ -57,6 +57,7 @@ export const NestableScrollContainer = React.forwardRef(
         forwardedRef={
           (forwardedRef as React.MutableRefObject<ScrollView>) || undefined
         }
+        scrollEnabled={props.scrollEnabled ?? true}
       >
         <NestableScrollContainerInner {...props} />
       </NestableScrollContainerProvider>

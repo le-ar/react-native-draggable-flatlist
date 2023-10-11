@@ -25,7 +25,7 @@ function useSetupNestableScrollContextValue({
 
   const contextVal = useMemo(
     () => ({
-      outerScrollEnabled,
+      outerScrollEnabled: scrollEnabled && outerScrollEnabled,
       setOuterScrollEnabled,
       outerScrollOffset,
       scrollViewSize,

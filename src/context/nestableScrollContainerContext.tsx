@@ -16,16 +16,18 @@ function useSetupNestableScrollContextValue({
   forwardedRef?: React.MutableRefObject<ScrollView>;
   scrollEnabled: boolean
 }) {
-  const [outerScrollEnabled, setOuterScrollEnabled] = useState(true);
+  const [defaultOuterScrollEnabled, setOuterScrollEnabled] = useState(true);
   const scrollViewSize = useSharedValue(0);
   const scrollableRefInner = useRef<ScrollView>(null);
   const scrollableRef = forwardedRef || scrollableRefInner;
   const outerScrollOffset = useSharedValue(0);
   const containerSize = useSharedValue(0);
 
+  const outerScrollEnabled = useMemo(() => defaultOuterScrollEnabled && scrollEnabled, [defaultOuterScrollEnabled, scrollEnabled])
+
   const contextVal = useMemo(
     () => ({
-      outerScrollEnabled: scrollEnabled && outerScrollEnabled,
+      outerScrollEnabled,
       setOuterScrollEnabled,
       outerScrollOffset,
       scrollViewSize,

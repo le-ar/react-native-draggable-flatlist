@@ -19,16 +19,10 @@ function NestableScrollContainerInner(props: ScrollViewProps) {
     outerScrollEnabled,
   } = useSafeNestableScrollContainerContext();
 
-  const onScrollAnim = useAnimatedScrollHandler({
-    onScroll: ({ contentOffset }) => {
-      outerScrollOffset.value = contentOffset.y;
-    },
-  });
-
   const onScroll = useCallback((evt: NativeSyntheticEvent<NativeScrollEvent>) => {
     props.onScroll?.(evt);
-    onScrollAnim(evt);
-  }, [props.onScroll, onScrollAnim]);
+    outerScrollOffset.value = evt.nativeEvent.contentOffset.y
+  }, [props.onScroll, outerScrollOffset]);
 
   const onLayout = useStableCallback((event: LayoutChangeEvent) => {
     const {

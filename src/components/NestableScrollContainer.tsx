@@ -1,5 +1,5 @@
 import React from "react";
-import { LayoutChangeEvent, ScrollViewProps } from "react-native";
+import { LayoutChangeEvent, ScrollViewProps, useCallback } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Animated, { useAnimatedScrollHandler } from "react-native-reanimated";
 import {
@@ -19,11 +19,16 @@ function NestableScrollContainerInner(props: ScrollViewProps) {
     outerScrollEnabled,
   } = useSafeNestableScrollContainerContext();
 
-  const onScroll = useAnimatedScrollHandler({
+  const onScrollAnim = useAnimatedScrollHandler({
     onScroll: ({ contentOffset }) => {
       outerScrollOffset.value = contentOffset.y;
     },
   });
+
+  const onScroll = useCallback((evt: NativeSyntheticEvent<NativeScrollEvent>) => {
+    props.onScroll?.(evt);
+    onScrollAnim(evt);
+  }, [props.onScroll, onScrollAnim]);
 
   const onLayout = useStableCallback((event: LayoutChangeEvent) => {
     const {

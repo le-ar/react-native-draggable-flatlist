@@ -1,5 +1,5 @@
-import React from "react";
-import { LayoutChangeEvent, ScrollViewProps, useCallback } from "react-native";
+import React, { useCallback } from "react";
+import { LayoutChangeEvent, ScrollViewProps, NativeSyntheticEvent, NativeScrollEvent} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Animated, { useAnimatedScrollHandler } from "react-native-reanimated";
 import {
